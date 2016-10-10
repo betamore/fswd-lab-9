@@ -5,3 +5,9 @@
 * Fork and clone, as always
 * `npm install`
 * `npm run dev` (**not** `npm start`)
+
+## Tasks
+
+* Scopes!
+* Associations!
+* Mayhem!
