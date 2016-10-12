@@ -18,7 +18,7 @@ describe('users', function() {
   });
 
   after(function() {
-    return User.truncate();
+    return User.truncate({ cascade: true });
   });
 
   describe('registration', function() {
