@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        Task.belongsTo(models.User);
       }
     },
     instanceMethods: {
@@ -15,6 +15,33 @@ module.exports = function(sequelize, DataTypes) {
       },
       markCompleted: function() {
         return this.updateAttributes({completedAt: sequelize.fn('NOW')});
+      }
+    },
+    scopes: {
+      completed: {
+        where: {
+          completedAt: {
+            $not: null
+          }
+        }
+      },
+      completedOneDayAgo: function() {
+        return {
+          where: {
+            completedAt: {
+              $gte: new Date(new Date() - (24 * 60 * 60 * 1000))
+            }
+          }
+        }
+      },
+      completedDaysAgo: function(daysAgo) {
+        return {
+          where: {
+            completedAt: {
+              $gte: new Date(new Date() - (daysAgo * 24 * 60 * 60 * 1000))
+            }
+          }
+        };
       }
     }
   });

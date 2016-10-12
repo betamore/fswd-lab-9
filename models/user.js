@@ -4,7 +4,12 @@ var bcrypt = require('bcrypt');
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
-    username: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      validate: {
+        notIn: [['login']]
+      }
+    },
     password: {
       type: DataTypes.STRING,
       set: function(val) {
@@ -26,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        User.hasMany(models.Task);
       }
     }
   });

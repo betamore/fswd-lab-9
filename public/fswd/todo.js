@@ -20,7 +20,10 @@ angular.module('fswd.todo', [])
     };
 
     this.addTodo = function(toAdd) {
-      todoList = todoList.concat([ toAdd ]);
+      $http.post('/tasks', { name: toAdd })
+        .then(function(response) {
+          todoList = response.data;
+        });
     };
 
   })
